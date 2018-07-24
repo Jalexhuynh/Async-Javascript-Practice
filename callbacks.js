@@ -63,3 +63,55 @@
 	// Removes one step by skipping a function declaration
 	// and defines the function as it is passed in
 	// to the higher order function.
+
+// 2. ========== FOREACH EXAMPLE ==========//
+
+// EXAMPLE 2.1: Non-Callback Example
+	var arr = [1, 2, 3, 4, 5, 6];
+
+	function double(arr) {
+		for (var i = 0; i < arr.length; i++) {
+			console.log(arr[i] * 2);
+		}
+	}
+
+	// Will console.log 2, 4, 6, 8, 10, 12.
+	double(arr);
+
+// EXAMPLE 2.2: Skeleton of forEach function.
+
+	function forEach(array, callback) {
+		for (var i = 0; i < arr.length; i++) {
+			callback(array[i], i, array);
+		}
+	};
+
+	function callback(curElement, curIndex, array) {};
+
+// EXAMPLE 2.3: Refactored with Callback
+	var arr = [1, 2, 3, 4, 5, 6];
+
+	forEach(arr, function(number) {
+		console.log(number * 2);
+	})
+
+// EXAMPLE 2.4: forEach with all parameters.
+	var strings = ["my", "forEach", "example"];
+	var result = "";
+
+	forEach(strings, function(str, index, array) {
+
+		// Ex: 1st iteration: ("my",      0, strings)
+		//     2nd iteration: ("forEach", 1, strings)
+		//	   3rd iteration: ("example", 2, strings)
+		// 	   Array.length - 1 = 2
+		if(array.length - 1 !== index) {
+			result += str + " ";
+		} else {
+			result += str + "!!!";
+
+			// Will output:
+			// my forEach example!!!
+			console.log(result)
+		}
+	});
