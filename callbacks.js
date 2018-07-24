@@ -64,7 +64,7 @@
 	// and defines the function as it is passed in
 	// to the higher order function.
 
-// 2. ========== FOREACH EXAMPLE ==========//
+// 2. ========== FOREACH EXAMPLE ========== //
 
 // EXAMPLE 2.1: Non-Callback Example
 	var arr = [1, 2, 3, 4, 5, 6];
@@ -78,7 +78,7 @@
 	// Will console.log 2, 4, 6, 8, 10, 12.
 	double(arr);
 
-// EXAMPLE 2.2: Skeleton of forEach function.
+// EXAMPLE 2.2: forEach Definition
 
 	function forEach(array, callback) {
 		for (var i = 0; i < arr.length; i++) {
@@ -114,4 +114,35 @@
 			// my forEach example!!!
 			console.log(result)
 		}
+	});
+
+// 3. ========== FINDINDEX EXAMPLE ========== //
+
+// Returns the index of the first element in the array
+// for which the callback returns a "truthy" value. -1 is
+// returned if the callback never returns a truthy value.
+
+// EXAMPLE 3.1: findIndex Definition
+	function findIndex(array, callback) {};
+
+	function callback(curElement, curIndex, array) {};
+
+// EXAMPLE 3.2: Find a number 
+	var arr = [3, 4, 2, 6, 1, 5];
+
+	function findIndex(array, callback) {
+		for (var i = 0; i < arr.length; i++) {
+			if (callback(arr[i], i, arr)) {
+				return i;
+			} 
+		}
+
+		// Needs to be OUTSIDE the loop as a fallback
+		// in case the loop finishes without ever
+		// finding a true value.
+		return -1;
+	}
+
+	findIndex(arr, function(num, index, array) {
+		return num === 6;
 	});
