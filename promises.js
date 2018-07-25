@@ -54,3 +54,88 @@
 	promise.then(function(data) {
 		console.log("Random int passed to resolve:", data);
 	});
+
+// 3. ========== PROMISE CHAINING ========== //
+
+// EXAMPLE 3.1 Non-promise example of Nested Callbacks
+	var counter = 0;
+	setTimeout(function() {
+		counter++;
+		console.log("Counter:", counter);
+		setTimeout(function() {
+			counter++;
+			console.log("Counter:", counter);
+			setTimeout(function() {
+				counter++;
+				console.log("Counter:", counter);
+			}, 3000);
+		}, 2000);
+	}, 1000);
+ 
+	// 	Disadvantages:
+	// 	- Hard to read code
+	// 	- Logic is difficult to reason about
+	// 	- The code is not modular, lots of duplicates
+
+// EXAMPLE 3.2 Promise Chaining Example
+
+	var promise = new Promise(function(resolve, reject) {
+		setTimeout(function() {
+			randomInt = Math.floor(Math.random() * 10);
+			resolve(randomInt);
+		}, 1000);
+	});
+
+	promise.then(function(data) {
+		console.log("Random int passed to resolve:", data);
+		return new Promise(function(resolve, reject) {
+			setTimeout(function() {
+				resolve(Math.floor(Math.random() * 10));
+			}, 2000);
+		});
+	}).then(function(data) {
+		console.log("Second random int passed to resolve:", data);
+	});
+
+	// Will output "Random int..." in 3 seconds, then: 
+	// Will output "Second random..." in 0.5 seconds after.
+
+// EXAMPLE 3.3 Non-promise Chaining
+	var promise = new Promise(function(resolve, reject) {
+		resolve(5);
+	});
+
+	promise.then(function(data) {
+		return data * 2;
+	}).then(function(data) {
+		return data + 20;
+	}).then(function(data) {
+		console.log(data);
+	});
+
+	// Console.log 30
+
+// EXAMPLE 3.4 Refactoring Example 3.1
+	var counter = 0;
+	function incCounter() {
+		counter++;
+		console.log("Counter:", counter);
+	}
+
+	function runLater(callback, timeInMs) {
+		var p = new Promise(function(resolve, reject) {
+			setTimeout(function() {
+				var res = callback();
+				resolve(res);
+			}, timeInMs);
+		});
+		return p;
+	}
+
+	runLater(incCounter, 1000).then(function() {
+		return runLater(incCounter, 2000);
+	}).then(function() {
+		return runLater(incCounter, 3000);
+	}).then(function() {
+		// Any further code. Final .then not necessary.
+	});
