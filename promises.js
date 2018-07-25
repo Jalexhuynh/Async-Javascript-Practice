@@ -40,3 +40,17 @@
 	}).catch(function(error) {
 		console.log("Error:", error);
 	});
+
+// 2. ========== ASYNCHRONOUS PROMISES ========== //
+
+// EXAMPLE 2.1 setTimeout with Promise
+	var promise = new Promise(function(resolve, reject) {
+		setTimeout(function(){
+			var randomInt = Math.floor(Math.random() * 10);
+			resolve(randomInt);
+		}, 4000);
+	});
+
+	promise.then(function(data) {
+		console.log("Random int passed to resolve:", data);
+	});
