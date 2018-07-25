@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Bitcoin Price Checker</title>
+		<style type="text/css">
+			span {
+				color: green;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Bitcoin Current Price is:
+			<span id="price"></span>
+		</h1>
+		<select id="dropdown">
+			<option value="1">USD</option>
+			<option value="2">GBP</option>
+			<option value="3">EUR</option>
+		</select>
+		<button>Refresh Button</button>
+
+		<script type="text/javascript">
+			var btn = document.querySelector("button");
+			var price = document.querySelector("#price");
+			var currency = document.querySelector("#dropdown");
+
+			// Listen for clicks
+			btn.addEventListener("click", function () {
+			  
+			  // Make the request
+			  var XHR = new XMLHttpRequest();
+			  XHR.onreadystatechange= function() {
+			    
+			    // Ensures request completed and actually worked.
+			    if (XHR.readyState == 4 && XHR.status == 200) {
+			      
+			      // Checks currency user selected
+			      if(currency.value == 1) {
+
+				      // Converts the data from a string into an object.
+				      var data = JSON.parse(XHR.responseText).bpi.USD.rate;
+				      
+				      // Changes the text content to the new URL.
+				      price.textContent = data;
+
+			      } else if (currency.value == 2) {
+				      var data = JSON.parse(XHR.responseText).bpi.GBP.rate;
+				      price.textContent = data;
+				      
+			      } else if (currency.value == 3) {
+				      var data = JSON.parse(XHR.responseText).bpi.EUR.rate;
+				      price.textContent = data;
+			      }
+			    }
+			  }
+			  XHR.open("GET", "https://api.coindesk.com/v1/bpi/currentprice.json");
+			  XHR.send();
+			})
+		</script>
+	</body>
+</html>
