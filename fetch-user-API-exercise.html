@@ -92,6 +92,11 @@
 			.footer:hover, button:hover {
 			  cursor: pointer
 			}
+
+			#fullname, #city {
+				text-transform: capitalize;
+			}
+
 		</style>
 	</head>
 	<body>
@@ -119,6 +124,53 @@
 			// 	.then(parseJSON)
 			// 	.then(updateProfile)
 			// 	.catch(printError);
+
+			// Personal Successful Code:
+
+			var btn = document.querySelector("button");
+			var fullname = document.querySelector("#fullname");
+			var user = document.querySelector("#username");
+			var email = document.querySelector("#email");
+			var city = document.querySelector("#city");
+			var img = document.querySelector("#avatar");
+			var url = "https://randomuser.me/api/";
+
+			btn.addEventListener("click", function () {
+				fetch(url)
+					.then(handleErrors)
+					.then(parseJSON)
+					.then(updateProfile)
+					.catch(printError);
+			});
+
+			function handleErrors(response) {
+				if (!response.ok) {
+					throw Error(response.status);
+				}
+				console.log(response);
+				return response;
+			}
+
+			function parseJSON(response) {
+				return response.json()
+			}
+
+			function updateProfile(data) {
+				data = data.results[0];
+				var firstName = data.name.first;
+				var lastName = data.name.last;
+				var combined = firstName + " " + lastName;
+				fullname.textContent = combined;
+				city.textContent = data.location.city;
+				email.textContent = data.email;
+				user.textContent = data.login.username;
+				img.src = data.picture.medium;
+			}
+
+			function printError(error) {
+				console.log(error);
+			}
+
 		</script>
 	</body>
 </html>
