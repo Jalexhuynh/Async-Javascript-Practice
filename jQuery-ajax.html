@@ -5,11 +5,35 @@
 	</head>
 	<body>
 
+		<h3>jQuery and Ajax</h1>
+		<p>
+			jQuery can be used to make XHRHTTP requests
+			as well. The notation is shorter, and 
+			easier to understand. 
+		</p>
+		<p>
+			In the example below, the bacon ipsum API is called and a new paragraph of bacon ipsum is generated and replaced in the page.
+		</p>
+
 		<button id="btn">Generate Bacon Ipsum!</button>
 		<p id="text"></p>
 
+		<h3>List of jQuery AJAX Methods:</h3>
+		<ul>
+			<li>$.ajax</li>
+			<li>$.get</li>
+			<li>$.post</li>
+			<li>$.getJSON</li>
+		</ul>
+
+		<button id="getBtn">GET()</button>
+		<button id="postBtn">POST()</button>
+		<button id="getJSONBtn">GETJSON()</button>
+
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
 		<script type="text/javascript">
+
 			$("#btn").click(function() {
 				$.ajax({
 					method: "GET",
@@ -26,6 +50,43 @@
 			function addP(data) {
 				$("#text").text(data[0]);
 			}
+
+			$("#getBtn").click(function() {
+				$.get("https://api.github.com/users/jalexhuynh")
+				.done(function(data) {
+					console.log(data);
+				})
+				.fail(function() {
+					console.log("Error");
+				})
+			});
+
+			$("#postBtn").click(function() {
+				var data = {
+					name: "Justin",
+					city: "Los Angeles"
+				}
+				$.post("https://api.github.com/users/jalexhuynh", data)
+				.done(function(data) {
+					console.log(data);
+				})
+				.fail(function() {
+					console.log("Error");
+				})
+			});	
+
+			$("#getJSONBtn").click(function() {
+				$.getJSON("https://api.github.com/users/jalexhuynh")
+				.done(function(data) {
+					console.log(data);
+				})
+				.fail(function() {
+					console.log("Problem!!");
+				})
+			});
+
+
+
 		</script>
 	</body>
 </html>
