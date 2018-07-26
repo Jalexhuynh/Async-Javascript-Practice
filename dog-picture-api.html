@@ -21,13 +21,20 @@
 	<body>
 		<div class="container">
 			<h1>Welcome To Random Dog Pictures</h1>
-			<img id="photo" src="https:\/\/dog.ceo\/api\/img\/deerhound-scottish\/n02092002_6780.jpg" alt="">
-			<button id="btn">Get Random Dog!</button>
-		</div>
-		<script type="text/javascript">
-			var btn = document.querySelector("#btn");
-			var img = document.querySelector("#photo");
+			<img id="dogPhoto" src="https:\/\/dog.ceo\/api\/img\/deerhound-scottish\/n02092002_6780.jpg" alt="">
+			<button id="dogBtn">Get Random Dog!</button>
 
+
+			<h1>Welcome To Random Cat Pictures</h1>
+			<img id="catPhoto" src="http://aws.random.cat/meow">
+			<button id="catBtn">Get Random Cat!</button>
+		</div>
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript">
+			var btn = document.querySelector("#dogBtn");
+			var img = document.querySelector("#dogPhoto");
+
+			// OLD CODE FOR DOG PICTURE GENERATOR
 			// Listen for clicks
 			btn.addEventListener("click", function () {
 			  
@@ -48,6 +55,19 @@
 			  XHR.open("GET", "https://dog.ceo/api/breeds/image/random");
 			  XHR.send();
 			})
+
+			// NEW CODE FOR CAT PICTURE GENERATOR
+
+			$("#catBtn").click(function() {
+				$.get("http://aws.random.cat/meow")
+				.done(function(data) {
+					$("#catPhoto").attr("src", data.file);
+				})
+				.fail(function(error) {
+					console.log()
+				})
+			})
+
 		</script>
 	</body>
 </html>
