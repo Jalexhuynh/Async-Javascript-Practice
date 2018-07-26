@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>AXIOS</title>
+	</head>
+	<body>
+
+		<h3>AXIOS</h1>
+		<p>
+			Axios is the solution to including a giant
+			library like jQuery, when you might only
+			be wanting to use it for small functions,
+			such as making XHRHttp requests.
+		</p>
+		<p>
+			Fortunately, Axios is one such solution 
+			by providing a small library that ONLY
+			supports these sorts of functions.
+		</p>
+		<h3>List of AXIOS Methods:</h3>
+		<ul>
+			<li>axios.get()</li>
+		</ul>
+
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+		<script type="text/javascript">
+
+			// Trivia API
+			var url = "https://opentdb.com/api.php?amount=1"
+
+			axios.get(url)
+			.then(function(res) {
+				console.log(res.data.results[0].question);
+			})
+			.catch(function() {
+				console.log("Error")
+			});
+
+		</script>
+	</body>
+</html>
