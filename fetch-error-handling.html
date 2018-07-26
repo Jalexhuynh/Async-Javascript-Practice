@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Fetch Errors</title>
+		<style type="text/css">
+			html, body {
+				height: 90vh;
+				width: 100vh;
+			}
+
+			button {
+				margin: 40% 40%;
+				padding: 30px;
+			}
+		</style>
+	</head>
+	<body>
+		<button>CLICK ME TO MAKE A BAD REQUEST</button>
+
+		<script type="text/javascript">
+			var btn = document.querySelector("button");
+
+			btn.addEventListener("click", function () {
+				var url = "https://api.github.com/users/colt";
+				fetch(url)
+				.then(handleErrors)
+				.then(function(response) {
+					console.log("Ok");
+				})
+				.catch(function(error) {
+					console.log(error);
+				})
+			});
+
+			function handleErrors(request) {
+				if (!request.ok) {
+						throw Error(request.status);
+					}
+				return request;
+			}
+
+			// The catch() will run if there is an issue
+			// with the user's request, such as if their
+			// internet is off. But it will not run if
+			// there is an issue with the repsonse, such
+			// as a 404 error.
+
+
+		</script>
+	</body>
+</html>
