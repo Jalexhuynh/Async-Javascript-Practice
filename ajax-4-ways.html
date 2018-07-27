@@ -91,17 +91,15 @@
 
 			var fetchBtn = document.querySelector("#fetch");
 			fetchBtn.addEventListener("click", function() {
-				fetch(url, {
-					method: 'GET'
-				})
+				fetch(url)
 				.then(function(res) {
 					return res.json();
 				})
 				.then(function(data) {
 					quote.innerText = data[0];
 				})
-				.catch(function(error) {
-					console.log(error);
+				.catch(function() {
+					console.log("Error");
 				});			
 			});
 
@@ -119,14 +117,16 @@
 
 		// Version 4: Axios Request
 
-		var axiosBtn = document.querySelector("#axios");
-		axiosBtn.addEventListener("click", function() {
-			axios.get(url)
-			.then(function(data) {
-				quote.innerText = data.data[0];
-			})
-		});
-
+			var axiosBtn = document.querySelector("#axios");
+			axiosBtn.addEventListener("click", function() {
+				axios.get(url)
+				.then(function(res) {
+					quote.innerText = res.data[0];
+				})
+				.catch(function() {
+					console.log("Error");
+				})
+			});
 
 	</script>
 </body>

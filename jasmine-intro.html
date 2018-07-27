@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Jasmine Tests</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.6.2/jasmine.css">
+	</head>
+	<body>
+
+		<h3>Important Keywords and Functions</h3>
+		<ul>
+			<li>Describe - Given to us by Jasmine, and used to organize our tests. "Let me describe ____ to you."</li>
+			<li>It - Used inside the describe functions. "Now that I've described something, let me tell you more about ____</li>
+			<li>Expect - Lives inside the it function, and makes expectations/assertions about the it. "Here's what I expect."</li>
+		</ul>
+		<h3>Example Conceptual Exercise</h3>
+		<ul>
+			<li>Describe("earth")</li>
+			<ul>
+				<li>It("Is round")</li>
+				<ul>
+					<li>Expect(earth.isRound.toBe(true)</li>
+				</ul>
+				<li>It("3rd planet from the sun")</li>
+				<ul>
+					<li>Expect(earth.numberFromSun)toBe(3)</li>
+				</ul>
+			</ul>
+		</ul>
+		<h3>Matchers</h3>
+		<ol>
+			<li>toBe / not.toBe: Compares with "==="</li>
+			<li>toBeCloseTo: Compares two values using a third for precision</li>
+			<li>toBeDefined: Ensures variables are not undefined</li>
+			<li>toBeTruthy/toBeFalsey: Used when expecting boolean values</li>
+			<li>toBeGreaterThan / toBeLessThan</li>
+			<li>toContain: Useful with arrays. Can be used to test if a value is inside an array.</li>
+			<li>toEqual: Compares two objects and their contents, even if they are different references in memory. Unlike toBe.</li>
+			<li>jasmine.any(): Not a matcher, but will check the type of something for arrays and functions.</li>
+		</ol>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.6.2/jasmine.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.6.2/jasmine-html.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.6.2/boot.js"></script>
+
+		<script type="text/javascript">
+			
+		 describe("Jasmine Matchers", function() {
+		  it("allows for === and deep equality", function() {
+		    expect(1+1).toBe(2);
+		    expect([1,2,3]).toEqual([1,2,3]);
+		  });
+		  it("allows for easy precision checking", function() {
+		    expect(3.1415).toBeCloseTo(3.14,2);
+		  });
+		  it("allows for easy truthy / falsey checking", function() {
+		    expect(0).toBeFalsy();
+		    expect([]).toBeTruthy();
+		  });
+		  it("allows for easy type checking", function() {
+		    expect([]).toEqual(jasmine.any(Array));
+		    expect(function(){}).toEqual(jasmine.any(Function));
+		  });
+		  it("allows for checking contents of an object", function() {
+		    expect([1,2,3]).toContain(1);
+		    expect({name:'Elie', job:'Instructor'}).toEqual(jasmine.objectContaining({name:'Elie'}));
+		  });
+		});
+
+		</script>
+
+	</body>
+</html>
