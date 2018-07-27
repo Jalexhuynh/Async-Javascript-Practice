@@ -62,8 +62,72 @@
 		<button id="axios">Axios</button>
 	</section>
 	<p id="quote">Quote Goes Here...</p>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript">
+
+		// Global Variables
+
 		var url = 'https://ron-swanson-quotes.herokuapp.com/v2/quotes';
+		var quote = document.querySelector("#quote"); 	
+
+		// Version 1: XHR Request
+
+			var XHRbtn = document.querySelector("#xhr");
+			var XHR = new XMLHttpRequest();
+
+			XHRbtn.addEventListener("click", function() {
+				XHR.onreadystatechange = function() {
+					if (XHR.readyState == 4 && XHR.status == 200) {
+						var message = JSON.parse(XHR.responseText);
+						quote.innerText = message[0];
+					}
+				}
+				XHR.open("GET", url);
+				XHR.send();
+			});
+
+		// Version 2: Fetch Request
+
+			var fetchBtn = document.querySelector("#fetch");
+			fetchBtn.addEventListener("click", function() {
+				fetch(url, {
+					method: 'GET'
+				})
+				.then(function(res) {
+					return res.json();
+				})
+				.then(function(data) {
+					quote.innerText = data[0];
+				})
+				.catch(function(error) {
+					console.log(error);
+				});			
+			});
+
+		// Version 3: jQuery Request
+
+			$("#jquery").click(function() {
+				$.get(url)
+				.done(function(data) {
+					$("#quote").text(data[0]);
+				})
+				.fail(function() {
+					console.log("Error");
+				})
+			});
+
+		// Version 4: Axios Request
+
+		var axiosBtn = document.querySelector("#axios");
+		axiosBtn.addEventListener("click", function() {
+			axios.get(url)
+			.then(function(data) {
+				quote.innerText = data.data[0];
+			})
+		});
+
+
 	</script>
 </body>
 </html>
